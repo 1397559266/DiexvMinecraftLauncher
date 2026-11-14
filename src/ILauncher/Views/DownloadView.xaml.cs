@@ -1,3 +1,4 @@
+using ILauncher.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -72,19 +73,5 @@ public partial class DownloadView : UserControl
     }
 
     private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
-    {
-        while (current != null)
-        {
-            if (current is T match)
-            {
-                return match;
-            }
-
-            current = current is Visual or System.Windows.Media.Media3D.Visual3D
-                ? VisualTreeHelper.GetParent(current)
-                : LogicalTreeHelper.GetParent(current);
-        }
-
-        return null;
-    }
+        => TreeWalker.FindAncestor<T>(current);
 }

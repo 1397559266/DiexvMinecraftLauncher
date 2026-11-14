@@ -1,3 +1,4 @@
+using ILauncher.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -102,17 +103,5 @@ public static class ListAnimator
     }
 
     private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
-    {
-        while (current is not null)
-        {
-            if (current is T match)
-            {
-                return match;
-            }
-
-            current = VisualTreeHelper.GetParent(current);
-        }
-
-        return null;
-    }
+        => TreeWalker.FindAncestor<T>(current);
 }

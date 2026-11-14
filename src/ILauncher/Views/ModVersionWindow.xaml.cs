@@ -1,3 +1,4 @@
+using ILauncher.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -524,21 +525,7 @@ public partial class ModVersionWindow : Window, INotifyPropertyChanged
     }
 
     private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
-    {
-        while (current != null)
-        {
-            if (current is T match)
-            {
-                return match;
-            }
-
-            current = current is Visual or System.Windows.Media.Media3D.Visual3D
-                ? VisualTreeHelper.GetParent(current)
-                : LogicalTreeHelper.GetParent(current);
-        }
-
-        return null;
-    }
+        => TreeWalker.FindAncestor<T>(current);
 
     private void Install_Click(object sender, RoutedEventArgs e)
     {

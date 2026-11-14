@@ -1,3 +1,4 @@
+using ILauncher.Controls;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -140,17 +141,5 @@ public partial class MainWindow : Window
     }
 
     private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
-    {
-        while (current != null)
-        {
-            if (current is T match)
-            {
-                return match;
-            }
-
-            current = VisualTreeHelper.GetParent(current);
-        }
-
-        return null;
-    }
+        => TreeWalker.FindAncestor<T>(current);
 }

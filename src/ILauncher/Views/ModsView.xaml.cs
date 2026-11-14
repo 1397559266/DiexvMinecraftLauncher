@@ -1,3 +1,4 @@
+using ILauncher.Controls;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,21 +40,7 @@ public partial class ModsView : UserControl
     }
 
     private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
-    {
-        while (current != null)
-        {
-            if (current is T match)
-            {
-                return match;
-            }
-
-            current = current is Visual or System.Windows.Media.Media3D.Visual3D
-                ? VisualTreeHelper.GetParent(current)
-                : LogicalTreeHelper.GetParent(current);
-        }
-
-        return null;
-    }
+        => TreeWalker.FindAncestor<T>(current);
 
     private void OnDragOver(object sender, DragEventArgs e)
     {
